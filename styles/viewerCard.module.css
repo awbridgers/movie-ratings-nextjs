@@ -1,0 +1,65 @@
+.viewerCard{
+  flex-basis: 70%;
+  color:white;
+  margin: 5px;
+  min-width: 450px;
+  max-width: 700px;
+}
+.viewerCard a{
+  color: white;
+  text-decoration: none;
+}
+.viewerCard a:hover{
+  color: aqua;
+  text-decoration: none;
+  cursor: pointer;
+}
+.viewerCardHeader{
+  font-size: 1.8rem;
+}
+.viewerCardBody{
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+}
+.viewerCardTable{
+  width: 100%;
+  
+}
+.viewerCardTable td{
+  font-size: 19px;
+  color: #bdbdbd;
+  padding:5px;
+}
+.viewerCardTable th{
+  font-size:20px;
+  text-align: left;
+  font-weight: normal;
+  
+}
+
+.avgRating{
+  display: flex;
+  flex-flow: row;
+  width:100%;
+}
+#ratingNumber{
+  align-self: flex-end;
+  margin-left:4px;
+}
+@media all and (max-width: 700px){
+  .viewerCard{
+    flex-basis:99%;
+    min-width: 300px;
+  }
+  .viewerCardTable{
+    table-layout: fixed;
+  }
+  .viewerCardTable td{
+    font-size: 18px;
+  }
+  .viewerCardTable th{
+    font-size: 18px;
+  }
+
+}

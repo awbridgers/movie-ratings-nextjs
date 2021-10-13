@@ -1,0 +1,59 @@
+.profile{
+  color: white;
+}
+.settings{
+  width: 80%;
+  margin: 10px auto;
+  min-width: 485px;
+  background-color: #343a40;
+  max-width: 800px;
+}
+.settingsTitle{
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+.infoTable, .ratingInfo{
+  width:90%;
+  margin: auto;
+}
+
+.infoTable td, .ratingInfo td{
+  padding:10px;
+  font-size: 20px;
+  max-width: 400px;
+  overflow-x: hidden;
+}
+.infoTable td:nth-child(2), .ratingInfo td:nth-child(2){
+  color:#bdbdbd
+}
+.change{
+  color: aqua;
+}
+.change:hover{
+  color: yellow;
+  cursor: pointer;
+}
+.plainText{
+  color:rgb(255, 255, 255);
+}
+.delete{
+  text-align: center;
+}
+.warning{
+  color: red;
+}
+@media all and (max-width: 700px) {
+  .settings{
+     min-width: auto;
+     width:99%;
+  }
+  .infoTable{
+    width:100%;
+  }
+  .infoTable td, .ratingInfo td{
+    padding:5px;
+    font-size: 16px;
+    overflow-x:hidden;
+  }
+}

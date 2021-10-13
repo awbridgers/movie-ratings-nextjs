@@ -1,0 +1,99 @@
+.logIn {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background-color: rgba(26, 26, 26, 0.9);
+  z-index: 100;
+  color: white;
+}
+.logInBox {
+  width: 50%;
+  position: fixed !important;
+  background-color: #343a40;
+  padding: 10px;
+  left: 0px;
+  right: 0px;
+  margin: auto;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 8px;
+  max-width: 450px;
+  display: flex;
+  flex-flow: column nowrap;
+}
+.logOutBox {
+  width: 50%;
+  min-width: 300px;
+  position: fixed !important;
+  padding: 10px;
+  left: 0px;
+  right: 0px;
+  margin: auto;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 8px;
+  max-width: 450px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+.logInTitle {
+  margin: auto;
+  text-align: center;
+}
+
+.logInButtons {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}
+#submitButton,
+#backButton {
+  margin: 0px 10px;
+}
+#joinButton {
+  width: 50%;
+}
+.logInErrors {
+  margin: auto;
+  font-size: 14px;
+}
+.signUp {
+  color: white;
+}
+.signUpTitle {
+  font-size: 20px;
+  text-align: center;
+}
+.signUpForm {
+  width: 80%;
+  max-width: 500px;
+  margin: auto;
+}
+.link {
+  color: aqua;
+}
+.link:hover{
+  color: yellow;
+  cursor: pointer;
+  text-decoration: none;
+}
+.invalid-feedback {
+  color: #bd0012;
+}
+.form-control.is-invalid {
+  border-color: #bd0012;
+}
+
+@media all and (max-width: 700px) {
+  .logInBox {
+    width: 95%;
+    min-width: 270px;
+    padding: 10px;
+  }
+  .signUp {
+    min-width: 300px;
+  }
+}

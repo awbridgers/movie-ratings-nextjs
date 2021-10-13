@@ -1,0 +1,93 @@
+.movieCard{
+  color:white;
+  width:200px;
+  height:435px;
+  margin: 5px 10px;
+}
+.card{
+  border: 2px solid rgba(0,0,0,.125)!important;
+}
+.cardImage{
+  object-fit: contain;
+  max-width: 100%;
+  max-height:100%;
+
+}
+.imageWrapper{
+  /* padding-top: 150%; */
+  height: 67.6%;
+  position: relative;
+
+}
+.image{
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left:0px;
+  right:0px;
+  display: flex;
+  justify-content: center;
+}
+.bodyWrapper{
+  position: relative;
+  height: 31.5%;
+}
+.body{
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left:0px;
+  right:0px;
+  display:flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+.link :hover {
+  color: aqua;
+  text-decoration: none;
+}
+.link{
+  text-decoration: none;
+}
+.title{
+  flex-grow:1;
+  flex-basis: 80%;
+  text-align: center;
+  overflow: hidden;
+}
+.averageRating{
+  display: flex;
+  justify-content: center;
+  flex-basis: 20%;
+
+}
+.CircularProgressbar-text {
+  font-size: 40px  !important;
+}
+.score{
+  font-size: 35px;
+}
+@media all and (max-width: 700px){
+  .card{
+    min-width:250px;
+    width:100%;
+    max-width: unset;
+    height: unset;
+  }
+  /* .CircularProgressbar-text{
+    font-size: calc(8vw - 5px) !important;
+  } */
+  .bodyWrapper{
+    position: relative;
+    padding-top: 45%;
+    height: unset;
+  }
+  .title{
+    flex-basis: auto;
+  }
+  .imageWrapper{
+    padding-top:130%;
+    height: unset;
+  }
+}

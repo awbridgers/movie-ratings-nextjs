@@ -1,0 +1,99 @@
+.detailsPage{
+  flex-grow:1;
+  display: flex;
+  flex-flow: column nowrap;
+  color:white;
+}
+.heading {
+  font-size: 1.09rem;
+}
+.detailsBody {
+  font-size: 0.95rem;
+  color: #a7a7a7;
+}
+.overview {
+  max-width: 760px;
+}
+
+.movieRatings {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  width: 100%;
+}
+.ourRating {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  font-size: 12px;
+}
+.fanRating {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  font-size: 12px;
+}
+.ratingSize {
+  width: 30%;
+  margin-top: 5px;
+}
+.cage,.budget,.revenue,.overview{
+  margin: 2px 0px;
+}
+.changeRating{
+  color: aqua;
+  display: inline
+}
+.changeRating:hover{
+  color:yellow;
+  cursor: pointer;
+}
+@media all and (max-width: 700px) {
+  .movieRatings {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  .ourRating,
+  .fanRating {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    font-size: 12px;
+  }
+  .ratingSize {
+    width: 40%;
+  }
+  .heading {
+    font-size: 1.09rem;
+  }
+  .movieDetails {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 95%;
+    align-items: flex-start;
+    justify-content: center;
+    flex-grow: 1;
+    margin: auto;
+  }
+  .budget,
+  .revenue,
+  .overview {
+    margin: 10px 0px;
+  }
+  .detailBody {
+    font-size: 0.95rem;
+    color: #a8a8a8;
+  }
+  .ratingTitle {
+    font-size: 1.8rem;
+    text-align: center;
+    min-width: unset;
+    
+   
+  }
+}

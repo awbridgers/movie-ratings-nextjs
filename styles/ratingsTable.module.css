@@ -1,0 +1,47 @@
+.ratingTable {
+  width: 95%;
+  color: white;
+  margin: auto;
+  max-width: 1200px;
+  min-width: 275px;
+}
+
+.ratingTitle {
+  font-size: 2rem;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+}
+.tableOfRatings {
+  background: none !important;
+}
+.tableOfRatings td {
+  font-size: 20px;
+  /* border: none !important; */
+}
+.tableOfRatings th {
+  font-size: 22px;
+  border: none !important;
+  cursor: pointer;
+}
+.ratingName:hover{
+  color: aqua;
+  cursor: pointer;
+}
+
+.tableOfRatings {
+margin: 10px auto auto auto;
+table-layout: auto;
+text-align: center;
+/* width: auto !important; */
+}
+@media all and (max-width: 700px) {
+  .tableOfRatings{
+    table-layout: auto;
+    text-align: center;
+  }
+  .tableOfRatings td{
+    font-size: 18px;
+  }
+}
