@@ -1,9 +1,9 @@
-import firebase from 'firebase/app';
+import {DataSnapshot} from 'firebase/database'
 import 'firebase/database';
 import {IRating} from '../types';
 
 export const ratingsArray = (
-  ratings: firebase.database.DataSnapshot,
+  ratings: DataSnapshot,
   movie: boolean
 ): IRating[] => {
   let ratingsArray: IRating[] = [];
