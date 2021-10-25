@@ -8,9 +8,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function MyApp({Component, pageProps}: AppProps) {
   return (
     <AuthProvider>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <FirebaseProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </FirebaseProvider>
     </AuthProvider>
   );
 }

@@ -51,26 +51,26 @@ const FirebaseProvider = ({children}: IProvider) => {
   }, [user]);
   useEffect(() => {
     //load the data initially
-    // const getMovieData = async () => {
-    //   let tempMovieArray: IMovie[] = [];
-    //   try {
-    //     const movies = await get(ref(db, 'movies')); //await db.ref('movies').once('value');
-    //     movies.forEach((snapshot) => {
-    //       tempMovieArray.push({
-    //         title: snapshot.key!,
-    //         date: new Date(snapshot.val().date),
-    //         ratings: ratingsArray(snapshot.child('/ratings'), true),
-    //         id: snapshot.val().id,
-    //         cage: snapshot.val().cage,
-    //       });
-    //     });
-    //     setMovieArray(tempMovieArray);
-    //   } catch (e) {
-    //     if (e instanceof Error) {
-    //       console.log(e.message);
-    //     }
-    //   }
-    // };
+    const getMovieData = async () => {
+      let tempMovieArray: IMovie[] = [];
+      try {
+        const movies = await get(ref(db, 'movies')); //await db.ref('movies').once('value');
+        movies.forEach((snapshot) => {
+          tempMovieArray.push({
+            title: snapshot.key!,
+            date: new Date(snapshot.val().date),
+            ratings: ratingsArray(snapshot.child('/ratings'), true),
+            id: snapshot.val().id.toString(),
+            cage: snapshot.val().cage,
+          });
+        });
+        setMovieArray(tempMovieArray);
+      } catch (e) {
+        if (e instanceof Error) {
+          console.log(e.message);
+        }
+      }
+    };
     const getViewerData = async () => {
       try {
         let tempViewerArray: IViewer[] = [];
@@ -91,7 +91,7 @@ const FirebaseProvider = ({children}: IProvider) => {
         }
       }
     };
-    //getMovieData();
+    getMovieData();
     getViewerData();
   }, [userArray, displayName]);
   return (

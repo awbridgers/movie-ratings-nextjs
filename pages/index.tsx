@@ -12,6 +12,7 @@ import {get, ref, child} from 'firebase/database';
 import {getAllMovies} from '../util/getAllMovies';
 import MovieCard from '../components/movieCard';
 import Head from 'next/head';
+import { averageRating } from '../util/averageRating';
 
 interface Props {
   movies: IMovie[];
@@ -29,10 +30,10 @@ const options: Option[] = [
   {value: 'titleD', label: 'Title (Descending)'},
 ];
 
-const Home = ({movies}: Props) => {
+const Home = () => {
   const [sortType, setSortType] = useState<Option>(options[1]);
   const [cageFilter, setCageFilter] = useState<boolean>(false);
-
+  const movies = useContext(FirebaseContext).movie
   return (
     <>
     <Head>
@@ -76,7 +77,7 @@ const Home = ({movies}: Props) => {
                 title={movie.title}
                 date={movie.date}
                 id={movie.id}
-                averageRating={movie.averageRating}
+                averageRating={averageRating(movie.ratings)}
                 cage={movie.cage}
               />
             ))}
@@ -88,12 +89,4 @@ const Home = ({movies}: Props) => {
 
 export default Home;
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  const movies = await getAllMovies();
 
-  return {
-    props: {
-      movies,
-    },
-  };
-};

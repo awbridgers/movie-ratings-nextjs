@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {IMovieData, IRating} from '../../types';
+import {IMovie, IMovieData, IRating} from '../../types';
 import {getMovie} from '../../util/getMovie';
 import styles from '../../styles/moviePage.module.css';
 import {infoString} from '../../util/infoString';
@@ -14,99 +14,95 @@ import {get, ref} from 'firebase/database';
 import {getAllMovies} from '../../util/getAllMovies';
 import { ratingsArray } from '../../util/ratingsArray';
 import Head from 'next/head'
+import { FirebaseContext } from '../../firebase/provider';
+import { useRouter } from 'next/router';
+import RatingTable from '../../components/ratingTable';
+import AddRating from '../../components/addRating';
 
 interface Props {
-  title: string;
-  id: string;
-  date: string;
-  ratings: IRating[];
-  cage: boolean;
-  movieData: IMovieData;
+  movieInfo: IMovieData
 }
 
-const Movie = ({title, id, ratings, cage, date}: Props) => {
+const Movie = ({movieInfo}: Props) => {
+  const router = useRouter();
   const [addRating, setAddRating] = useState<boolean>(false);
   const [deleteRating, setDeleteRating] = useState<boolean>(false);
-  const [movieData, setMovieData] = useState<IMovieData>()
+  const [movieData, setMovieData] = useState<IMovie | undefined>()
+  const [userScore, setUserScore] = useState<IRating | undefined>(undefined)
   const isMobile = useMediaQuery({maxWidth: 700});
-  // const userMovie = useContext(FirebaseContext).userMovie;
-  // const userScore = userMovie.find(x=>x.name===title);
+  const userMovie = useContext(FirebaseContext).userMovie;
+  const movieContext = useContext(FirebaseContext).movie;
   useEffect(()=>{
-    const loadData = async()=>{
-      const data = await getMovie(id);
-      setMovieData(data)
-    }
-    let isMounted = true;
-    if(isMounted){
-      loadData();
-    }
-    return ()=>{isMounted = false}
-  })
+    const thisMovie = movieContext.find(x=>x.id === router.query.id);
+    const score = userMovie.find((x)=>x.name === thisMovie?.title);
+    setMovieData(thisMovie)
+    setUserScore(score)
+  },[movieContext])
   if (movieData) {
     const details = (
       <MovieDetails
-        date={new Date(date)}
-        ratings={ratings}
-        vote_average={movieData.vote_average}
-        vote_count={movieData.vote_count}
-        overview={movieData.overview}
-        budget={movieData.budget}
-        revenue={movieData.revenue}
-        cage={cage}
+        date={new Date(movieData.date)}
+        ratings={movieData.ratings}
+        vote_average={movieInfo.vote_average}
+        vote_count={movieInfo.vote_count}
+        overview={movieInfo.overview}
+        budget={movieInfo.budget}
+        revenue={movieInfo.revenue}
+        cage={movieData.cage}
         addRating={() => setAddRating(true)}
         deleteRating={() => {
           setDeleteRating(true);
           setAddRating(true);
         }}
-        userRating={undefined}
+        userRating={userScore}
       />
     );
     return (
       <>
       <Head>
-        <title>{title}</title>
-        <meta name = 'description' content = {`Movie information for ${title}`}/>
+        <title>{movieInfo.title}</title>
+        <meta name = 'description' content = {`Movie information for ${movieInfo.title}`}/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       </Head>
       <div className={styles.moviePage}>
-        {/* {addRating && (
+        {addRating && (
           <AddRating
             back={() => {setAddRating(false); setDeleteRating(false)}}
-            title={title}
+            title={movieData.title}
             userScore= {userScore}
             deleteRating = {deleteRating}
           />
-        )} */}
+        )}
 
         <div
           className={styles.info}
-          style={{backgroundImage: `url(${movieData.backdrop_path})`}}
+          style={{backgroundImage: `url(${movieInfo.backdrop_path})`}}
         >
           <div className={styles.overlay}></div>
           <div className={styles.moviePoster}>
-            <img src={movieData.poster_path} alt="" />
+            <img src={movieInfo.poster_path} alt="" />
           </div>
           <div className={styles.movieInfo} data-testid="movieDetails">
             <div className={styles.titleDiv}>
               <div className={styles.movieTitle}>
-                {`${movieData.title} (${new Date(movieData.release_date).getFullYear()})`}
+                {`${movieInfo.title} (${new Date(movieInfo.release_date).getFullYear()})`}
                 <div className={styles.movieTitleInfo}>
-                  {movieData &&
+                  {movieInfo &&
                     infoString(
-                      new Date(movieData.release_date),
-                      movieData.genres,
-                      movieData.runtime
+                      new Date(movieInfo.release_date),
+                      movieInfo.genres,
+                      movieInfo.runtime
                     )}
                 </div>
               </div>
 
-              <div className={styles.tagline}>{movieData.tagline}</div>
+              <div className={styles.tagline}>{movieInfo.tagline}</div>
             </div>
             {!isMobile && details}
           </div>
         </div>
         {isMobile && details}
-        {/* <RatingTable movie = {false} title="Ratings" ratings={ratings} isMobile={isMobile} /> */}
+        <RatingTable movie = {false} title="Ratings" ratings={movieData.ratings} isMobile={isMobile} />
       </div>
       </>
     );
@@ -120,7 +116,7 @@ const Movie = ({title, id, ratings, cage, date}: Props) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const movies = await getAllMovies();
-  const paths = movies.map((x) => ({params: {title: x.title.replace(/ /g, '-')}}));
+  const paths = movies.map((x) => ({params: {id: x.id.toString()}}));
   return {
     paths,
     fallback: false,
@@ -128,15 +124,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({params}) => {
-  const movie = await get(ref(db,`movies/${(params!.title! as string).replace(/-/g, ' ')}`));
+  const data = await getMovie(params!.id as string)
   return {
     props: {
-      title: movie.key!,
-      cage: movie.val().cage,
-      date: movie.val().date,
-      ratings: ratingsArray(movie.child('/ratings'),true),
-      id: movie.val().id
-    },
+      movieInfo: data
+    }
   };
 };
 export default Movie;

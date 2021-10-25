@@ -12,7 +12,7 @@ export interface IViewer {
 export interface IMovie {
   title: string,
   date: Date,
-  averageRating: number,
+  ratings: IRating[],
   id: string,
   cage: boolean
 }

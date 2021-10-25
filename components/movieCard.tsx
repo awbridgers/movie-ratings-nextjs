@@ -7,7 +7,13 @@ import StarRatings from 'react-star-ratings';
 import Link from 'next/link'
 import cardStyle from '../styles/movieCard.module.css'
 
-interface Props extends IMovie {}
+interface Props {
+  title: string;
+  id: string;
+  date: Date;
+  averageRating: number;
+  cage: boolean;
+}
 
 const MovieCard = ({title, id, date, averageRating}: Props) => {
   const [movieData, setMovieData] = useState<IMovieData>();
@@ -36,7 +42,7 @@ const MovieCard = ({title, id, date, averageRating}: Props) => {
       <div className={cardStyle.bodyWrapper}>
         <div className={cardStyle.body}>
           <div className={cardStyle.title}>
-            <Link href={`/movies/${title.replace(/ /g,'-')}`} passHref>
+            <Link href={`/movies/${id}`} passHref>
               <a className={cardStyle.link}>
               <Card.Title data-testid={title}>{movieData?.title}</Card.Title>
               </a>
