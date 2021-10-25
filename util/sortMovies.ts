@@ -1,23 +1,21 @@
-import {IMovie, IViewer} from '../types';
-import { Option } from '../types';
+import {IMovie, IViewer, Option} from '../types';
+
 import {averageRating} from './averageRating';
 
 export const sortMovies = (
-  preA: IMovie,
-  preB: IMovie,
+  a: IMovie,
+  b: IMovie,
   sort: Option
 ): number => {
-  const a: IMovie = {...preA, date: new Date(preA.date)}
-  const b: IMovie = {...preB, date: new Date(preB.date)}
   switch (sort.value) {
     case 'dateA':
       return a.date.getTime() - b.date.getTime();
     case 'dateD':
       return b.date.getTime() - a.date.getTime();
     case 'rateA':
-      return a.averageRating - b.averageRating;
+      return averageRating(a.ratings) - averageRating(b.ratings);
     case 'rateD':
-      return b.averageRating - a.averageRating;
+      return averageRating(b.ratings) - averageRating(a.ratings);
     case 'titleA':
       if (a.title > b.title) {
         return 1;
