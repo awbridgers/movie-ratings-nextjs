@@ -321,7 +321,7 @@ const ChangeProfileInfo = ({type, back, currentEmail, currentName}: Props) => {
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group controlId="delete">
-                <Form.Label>Enter 'DELETE' to delete your account.</Form.Label>
+                <Form.Label>Enter &lsquo;DELETE&rsquo; to delete your account.</Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="enter DELETE"
