@@ -12,7 +12,7 @@ export const getAllMovies = async () => {
       tempMovieArray.push({
         title: snapshot.key!,
         date: snapshot.val().date,
-        averageRating: averageRating(ratingsArray(snapshot.child('/ratings'), true)),
+        ratings: ratingsArray(snapshot.child('/ratings'), true),
         id: snapshot.val().id,
         cage: snapshot.val().cage,
       });
